@@ -1,0 +1,123 @@
+<html lang="en">
+  <head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+
+    <style>
+    input[type=text]{
+        box-sizing:border-box;
+    }
+    </style>
+
+  </head>
+  <body>
+  
+    <div class="container-fluid">
+      <div class="row" id="names">
+
+      </div>
+      <div class="row">
+          <input type="text" id="text-field" class="col-md-8" placeholder="Type your Name to start chatting"><button id="button-send" class="btn col-md-2">Connect</button><button id="button-logout" class="btn disabled col-md-2">Logout</button>
+      </div>
+      <div class="row">
+        <table id="messages" class="table col-md-12">
+          <% messages.forEach(function(message){ %>
+            <tr>
+              <td><%= message.text %></td>
+              <td><%= message.sentfrom %></td>
+              <td><%= message.timestamp %></td>
+            </tr>
+          <% }) %>
+        </table>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+     <script src="https://cdn.socket.io/socket.io-1.0.0.js"></script>
+    <script type="text/javascript">
+      var login = false;
+      var socket = io();
+
+      var newRow = function (msg) {
+        var tr = document.createElement('tr');
+        var tdText = document.createElement('td');
+        tdText.appendChild(document.createTextNode(msg.text));
+        var tdName= document.createElement('td');
+        tdName.appendChild(document.createTextNode(msg.name));
+        var tdDate= document.createElement('td');
+        tdDate.appendChild(document.createTextNode(msg.timestamp));
+        tr.appendChild(tdText);
+        tr.appendChild(tdName);
+        tr.appendChild(tdDate);
+        var table = document.getElementById('messages');
+        if (table.children[0].nodeName == "TBODY") {
+          table.children[0].insertBefore(tr, table.children[0].firstChild);
+        } else {
+          table.insertBefore(tr, table.firstChild);
+        }
+      }
+      socket.on('new message', newRow);
+
+      var btn = document.getElementById('button-send');
+      var logout = document.getElementById('button-logout');
+      var textField = document.getElementById('text-field');
+      var names = document.getElementById('names');
+
+      var sendChat = function () {
+        if (login && textField !== "") {
+          socket.emit('send message', {
+            message: textField.value,
+            name: login
+          });
+          textField.value = "";
+        } else {
+          login = textField.value;
+          if (login !== "") {
+            btn.innerHTML = "Connecting";
+            textField.value = "";
+            textField.placeholder = "Type message...";
+            btn.classList.add('disabled')
+            socket.emit('login', {
+              name: login
+            });
+            socket.on('joined', function (msg) {
+              if (login == msg.name){
+                login = msg.newNick;
+                btn.classList.remove('disabled');
+                btn.innerHTML = "Send Chat ("+login+")";  
+                logout.classList.remove('disabled');
+                names.innerHTML = msg.names;
+
+              } else {
+                login = false;
+                btn.classList.remove('disabled')
+                btn.innerHTML = "Try connecting again";  
+              }
+              
+            });
+          }
+        }
+        // textField
+      };
+      btn.addEventListener('click', sendChat);
+      logout.addEventListener('click', socket.emit('logout'));
+      textField.addEventListener('keydown', function (e) {
+        var keyCode = e.keyCode;
+        if (keyCode == 13) {
+          sendChat();
+        }
+      });
+
+      socket.on('names', function (msg) {
+
+      });
+
+    </script>
+
+  </body>
+</html>

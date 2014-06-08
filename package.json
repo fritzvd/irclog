@@ -1,0 +1,45 @@
+{
+  "name": "ircbot",
+  "version": "0.0.0",
+  "description": "Create Models and sync database django style",
+  "main": "index.js",
+  "scripts": {
+    "test": "grunt test",
+    "client": "beefy client.js:bundle.js 3000",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/fritzvd/magic-pony.git"
+  },
+  "keywords": [
+    "django",
+    "database",
+    "sequelize",
+    "scaffolding",
+    "template",
+    "mvc-ish"
+  ],
+  "author": "fritzvd",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fritzvd/magic-pony/issues"
+  },
+  "homepage": "https://github.com/fritzvd/magic-pony",
+  "dependencies": {
+    "pg": "~2.11.1",
+    "sequelize": "~1.7.0-rc6",
+    "express": "~3.4.8",
+    "irc": "^0.3.7",
+    "ejs": "^1.0.0",
+    "socket.io": "^1.0.4",
+    "http": "0.0.0"
+  },
+  "devDependencies": {
+    "grunt-contrib-jasmine": "~0.6.3",
+    "supertest": "~0.10.0",
+    "mocha": "~1.18.2",
+    "grunt-mocha-test": "~0.10.0",
+    "chai": "~1.9.1"
+  }
+}
