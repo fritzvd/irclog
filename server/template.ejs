@@ -16,7 +16,8 @@
   <body>
   
     <div class="container-fluid">
-      <div class="row" id="names">
+      <div class="row">
+        <span class="badge">Online: <span id="names"></span>
 
       </div>
       <div class="row">
@@ -43,6 +44,8 @@
       var login = false;
       var socket = io();
 
+      var names = document.getElementById('names');
+
       var newRow = function (msg) {
         var tr = document.createElement('tr');
         var tdText = document.createElement('td');
@@ -60,13 +63,13 @@
         } else {
           table.insertBefore(tr, table.firstChild);
         }
+        names.innerHTML = Object.keys(msg.names).toString();
       }
       socket.on('new message', newRow);
 
       var btn = document.getElementById('button-send');
       var logout = document.getElementById('button-logout');
       var textField = document.getElementById('text-field');
-      var names = document.getElementById('names');
 
       var sendChat = function () {
         if (login && textField !== "") {
@@ -91,7 +94,8 @@
                 btn.classList.remove('disabled');
                 btn.innerHTML = "Send Chat ("+login+")";  
                 logout.classList.remove('disabled');
-                names.innerHTML = msg.names;
+                names.innerHTML = Object.keys(msg.names).toString();
+
 
               } else {
                 login = false;
