@@ -5,6 +5,7 @@
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/assets/holo.css">
 
     <style>
     input[type=text]{
@@ -14,15 +15,28 @@
 
   </head>
   <body>
-  
+    <header class="navbar navbar-bright navbar-fixed-top" role="banner" style="display:none;">
+      <div class="container">
+        <div class="navbar-header">
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <input type="text" id="text-field" class="col-md-8" placeholder="Type your Name to start chatting"><button id="button-send" class="btn col-md-2">Connect</button><button id="button-logout" class="btn disabled col-md-2">Logout</button>
+
+        </div>
+      </div>
+    </header>
+
     <div class="container-fluid">
       <div class="row">
         <span class="badge">Online: <span id="names"></span>
 
       </div>
       <div class="row">
-          <input type="text" id="text-field" class="col-md-8" placeholder="Type your Name to start chatting"><button id="button-send" class="btn col-md-2">Connect</button><button id="button-logout" class="btn disabled col-md-2">Logout</button>
-      </div>
+                </div>
       <div class="row">
         <table id="messages" class="table col-md-12">
           <% messages.forEach(function(message){ %>
@@ -90,7 +104,7 @@
               if (login == msg.name){
                 login = msg.newNick;
                 btn.classList.remove('disabled');
-                btn.innerHTML = "Send Chat ("+login+")";  
+                btn.innerHTML = "Send Chat ("+login+")";
                 logout.classList.remove('disabled');
                 names.innerHTML = Object.keys(msg.names).toString();
 
@@ -98,9 +112,9 @@
               } else {
                 login = false;
                 btn.classList.remove('disabled')
-                btn.innerHTML = "Try connecting again";  
+                btn.innerHTML = "Try connecting again";
               }
-              
+
             });
           }
         }
