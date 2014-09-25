@@ -28,7 +28,8 @@ var logout = function (id) {
 io.on('connection', function (socket) {
     console.log('user connected', socket.id);
     socket.on('login', function (msg) {
-        var newBot = new irc.Client(config.server, msg.name, {
+        var name = msg.name.match(/(\w+)/)[0]
+        var newBot = new irc.Client(config.server, name, {
             channels: config.channels
         });
         bots[socket.id] = {
