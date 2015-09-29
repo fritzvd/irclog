@@ -15,7 +15,6 @@
   "keywords": [
     "django",
     "database",
-    "sequelize",
     "scaffolding",
     "template",
     "mvc-ish"
@@ -27,19 +26,16 @@
   },
   "homepage": "https://github.com/fritzvd/magic-pony",
   "dependencies": {
-    "pg": "~2.11.1",
-    "sequelize": "~1.7.0-rc6",
-    "express": "~3.4.8",
-    "irc": "^0.3.7",
     "ejs": "^1.0.0",
-    "socket.io": "^1.0.4",
-    "http": "0.0.0"
+    "express": "~3.4.8",
+    "http": "0.0.0",
+    "irc": "^0.3.7",
+    "levelup": "^1.2.1",
+    "pouchdb": "^4.0.3",
+    "socket.io": "^1.0.4"
   },
   "devDependencies": {
-    "grunt-contrib-jasmine": "~0.6.3",
-    "supertest": "~0.10.0",
     "mocha": "~1.18.2",
-    "grunt-mocha-test": "~0.10.0",
     "chai": "~1.9.1"
   }
 }

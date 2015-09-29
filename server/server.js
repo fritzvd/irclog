@@ -1,6 +1,5 @@
-var express = require('express');
-var models = require('./models');
 var routes = require('./urls');
+var express = require('express');
 
 var app = express();
 app.set('view engine', 'ejs');
@@ -18,7 +17,7 @@ app.configure(function () {
 
 function start(port) {
 	if (port == undefined) {
-		port = 5000
+		port = 5001
 	}
 	routes.setup(app);
 	app.listen(port);

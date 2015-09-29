@@ -1,6 +1,7 @@
 var irc = require('irc');
-var models = require('./server/models');
 var server = require('./server/server');
+var pouch = require('pouchdb');
+var db = new pouch('http://localhost:5984/irclog');
 
 var config = {
     channels: ['#nens'],
@@ -68,17 +69,18 @@ http.listen(3000, function () {
 });
 
 bot.addListener('message', function (from, to, text, message) {
-    models.message.create({
+    db.post({
         text: text,
         timestamp: new Date(),
         sentfrom: from,
         sentto: to
     });
-    io.emit('new message', {
-        text: text,
-        name: from,
-        timestamp: new Date(),
-        names: names
+    io.emit('new message',
+          {
+            text: text,
+            name: from,
+            timestamp: new Date(),
+            names: names
     });
 });
 

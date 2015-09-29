@@ -45,9 +45,9 @@
           <table id="messages" class="table col-md-12">
             <% messages.forEach(function(message){ %>
               <tr>
-                <td><%= message.text %></td>
-                <td><%= message.sentfrom %></td>
-                <td><%= message.timestamp %></td>
+                <td><%= message.doc.text %></td>
+                <td><%= message.doc.sentfrom %></td>
+                <td><%= message.doc.timestamp %></td>
               </tr>
             <% }) %>
           </table>
