@@ -19,7 +19,6 @@ var index = function (req, res, next) {
     var list;
     var options = {
         limit: 20,
-        descending: true,
         include_docs: true
     };
     if (req.params.page) {
