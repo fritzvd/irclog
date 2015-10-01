@@ -69,12 +69,13 @@ http.listen(3000, function () {
 });
 
 bot.addListener('message', function (from, to, text, message) {
-    db.post({
+    db.put({
         text: text,
-        timestamp: new Date(),
+        _id: new Date() - 0 + from,
+	timestamp: new Date(),
         sentfrom: from,
         sentto: to
-    });
+    }).then(function(resp) {
     io.emit('new message',
           {
             text: text,
@@ -82,6 +83,10 @@ bot.addListener('message', function (from, to, text, message) {
             timestamp: new Date(),
             names: names
     });
+console.log(resp)
+   }).catch(function(error){
+	console.error(error);
+});
 });
 
 bot.addListener('join', function (channels, nick, message) {
