@@ -29,6 +29,7 @@ var logout = function (id) {
 io.on('connection', function (socket) {
     console.log('user connected', socket.id);
     socket.on('login', function (msg) {
+      console.log(msg)
         var name = msg.name.match(/(\w+)/)[0]
         var newBot = new irc.Client(config.server, name, {
             channels: config.channels
@@ -65,7 +66,7 @@ io.on('connection', function (socket) {
 });
 
 http.listen(3000, function () {
-    // console.log('listening on :3000');
+     console.log('listening on :3000');
 });
 
 bot.addListener('message', function (from, to, text, message) {
