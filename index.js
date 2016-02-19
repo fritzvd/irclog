@@ -1,17 +1,12 @@
 var irc = require('irc');
 var server = require('./server/server');
 var pouch = require('pouchdb');
+var config = require('./config')
 
 
 var dbLocation = (process.env.COUCHLOCATION || 'http://localhost:5984/irclog');
 
-var db = new pouch();
-
-var config = {
-    channels: ['#nens'],
-    server: 'irc.freenode.net',
-    botName: 'nens-bot'
-}
+var db = new pouch(dbLocation);
 
 var bot = new irc.Client(config.server, config.botName, {
     channels: config.channels

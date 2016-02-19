@@ -1,0 +1,5 @@
+{
+    "channels": ["#nens"],
+    "server": "irc.freenode.net",
+    "botName": "nens-bot"
+}

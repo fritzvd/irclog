@@ -16,3 +16,4 @@ node_modules
 .grunt/
 _SpecRunner.html
 server/settings.json
+config.json
