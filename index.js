@@ -65,7 +65,7 @@ io.on('connection', function (socket) {
         if (bots.hasOwnProperty(socket.id)) {
             logout(socket.id);
         }
-        console.log('user diconnected')
+        console.log('user diconnected');
     });
 });
 
@@ -77,7 +77,7 @@ bot.addListener('message', function (from, to, text, message) {
     db.put({
         text: text,
         _id: new Date() - 0 + from,
-	timestamp: new Date(),
+	      timestamp: new Date(),
         sentfrom: from,
         sentto: to
     }).then(function(resp) {
@@ -88,7 +88,6 @@ bot.addListener('message', function (from, to, text, message) {
             timestamp: new Date(),
             names: names
     });
-console.log(resp)
    }).catch(function(error){
 	console.error(error);
 });
