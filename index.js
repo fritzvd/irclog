@@ -1,7 +1,11 @@
 var irc = require('irc');
 var server = require('./server/server');
 var pouch = require('pouchdb');
-var db = new pouch('http://localhost:5984/irclog');
+
+
+var dbLocation = (process.env.COUCHLOCATION || 'http://localhost:5984/irclog');
+
+var db = new pouch();
 
 var config = {
     channels: ['#nens'],
